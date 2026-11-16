@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Equilibria – Mental Health Score Predictor</title>
+  <meta name="description" content="Explore how digital habits, academic routine and lifestyle patterns relate to a predicted mental health score.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a href="#home" class="brand" aria-label="Equilibria home">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="3" y="3" width="26" height="26" rx="8" fill="#111827"/>
+          <path d="M9 19.5c3-6.5 5-6.5 7 0s4 6.5 7 0" fill="none" stroke="#A99BEA" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <span>Equilibria</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+        <span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <h1>Understand Your Digital Lifestyle.</h1>
+          <p class="lead">Explore how your daily digital habits, academic routine and lifestyle patterns relate to your predicted mental health score.</p>
+          <a href="#assessment" class="btn btn--primary" id="startBtn">Start Assessment</a>
+          <p class="hero__note">12 questions. Takes about two minutes.</p>
+        </div>
+
+        <!-- 3D scene: layered plates + floating orb, driven by mouse parallax -->
+        <div class="scene" id="scene" aria-hidden="true">
+          <div class="scene__stage">
+            <div class="plate plate--3"></div>
+            <div class="plate plate--2"></div>
+            <div class="plate plate--1">
+              <svg viewBox="0 0 220 120" class="plate__wave">
+                <path d="M0 80 C 30 20, 60 20, 90 70 S 150 120, 220 30" fill="none" stroke="#A99BEA" stroke-width="3" stroke-linecap="round"/>
+                <path d="M0 95 C 40 60, 80 60, 120 90 S 190 100, 220 70" fill="none" stroke="rgba(248,247,244,.35)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="orb"></div>
+            <div class="chip chip--a"></div>
+            <div class="chip chip--b"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assessment form -->
+    <section class="section" id="assessment">
+      <div class="container">
+        <div class="section__head">
+          <h2>Assessment</h2>
+          <p>Answer as accurately as you can. Your inputs are sent only to the prediction service running on your own machine.</p>
+        </div>
+
+        <div class="form-card tilt" id="formCard">
+          <div class="progress" aria-label="Form progress">
+            <div class="progress__steps" id="progressSteps">
+              <button type="button" class="progress__step is-active" data-step="0"><i>1</i><span>Personal</span></button>
+              <button type="button" class="progress__step" data-step="1"><i>2</i><span>Digital habits</span></button>
+              <button type="button" class="progress__step" data-step="2"><i>3</i><span>Lifestyle</span></button>
+            </div>
+            <div class="progress__bar"><div class="progress__fill" id="progressFill"></div></div>
+          </div>
+
+          <form id="assessmentForm" novalidate>
+            <!-- Step 1 -->
+            <fieldset class="step is-active" data-step="0">
+              <legend>Personal Information</legend>
+              <div class="grid">
+                <div class="field">
+                  <label for="age">Age</label>
+                  <input type="number" id="age" name="age" inputmode="numeric" min="10" max="100" step="1" placeholder="21" required>
+                  <small>Between 10 and 100.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="gender">Gender</label>
+                  <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Male</option><option>Female</option>
+                  </select>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="country">Country</label>
+                  <input type="text" id="country" name="country" list="countryList" placeholder="India" autocomplete="country-name" required>
+                  <datalist id="countryList">
+                    <option value="India"><option value="USA"><option value="Canada"><option value="Australia"><option value="UK">
+                    <option value="Germany"><option value="Mexico"><option value="Turkey"><option value="France">
+                  </datalist>
+                  <small>Pick a suggestion or type your own.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="academic_level">Academic level</label>
+                  <select id="academic_level" name="academic_level" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>High School</option><option>Undergraduate</option><option>Graduate</option>
+                  </select>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Step 2 -->
+            <fieldset class="step" data-step="1">
+              <legend>Digital Habits</legend>
+              <div class="grid">
+                <div class="field">
+                  <label for="most_used_platform">Most used platform</label>
+                  <select id="most_used_platform" name="most_used_platform" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Facebook</option><option>LinkedIn</option><option>Instagram</option><option>Snapchat</option>
+                    <option>Twitter</option><option>YouTube</option><option>TikTok</option><option>LINE</option>
+                    <option>KakaoTalk</option><option>VKontakte</option><option>WhatsApp</option><option>WeChat</option>
+                  </select>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="purpose_of_use">Main purpose of use</label>
+                  <select id="purpose_of_use" name="purpose_of_use" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Networking</option><option>Education</option><option>Entertainment</option><option>News</option>
+                  </select>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="avg_daily_usage_hours">Daily Screen Time</label>
+                  <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" inputmode="decimal" min="0" max="24" step="any" placeholder="5.5" required>
+                  <small>Average per day, 0 to 24.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="daily_unlocks">Daily phone unlocks</label>
+                  <input type="number" id="daily_unlocks" name="daily_unlocks" inputmode="numeric" min="0" step="1" placeholder="80" required>
+                  <small>Whole number, 0 or more.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Step 3 -->
+            <fieldset class="step" data-step="2">
+              <legend>Lifestyle &amp; Well-being</legend>
+              <div class="grid">
+                <div class="field">
+                  <label for="study_hours">Study hours per day</label>
+                  <input type="number" id="study_hours" name="study_hours" inputmode="decimal" min="0" max="24" step="any" placeholder="6" required>
+                  <small>0 to 24.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="physical_activity_hours">Physical activity (hours)</label>
+                  <input type="number" id="physical_activity_hours" name="physical_activity_hours" inputmode="decimal" min="0" max="24" step="any" placeholder="1" required>
+                  <small>0 to 24.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="sleep_hours_per_night">Sleep per night (hours)</label>
+                  <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" inputmode="decimal" min="0" max="24" step="any" placeholder="7" required>
+                  <small>0 to 24.</small>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label for="stress_level">Stress level</label>
+                  <select id="stress_level" name="stress_level" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+                  </select>
+                  <span class="error" aria-live="polite"></span>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="form-error" id="formError" role="alert" hidden></div>
+
+            <div class="actions">
+              <button type="button" class="btn btn--ghost" id="prevBtn" hidden>Back</button>
+              <button type="button" class="btn btn--primary" id="nextBtn">Continue</button>
+              <button type="submit" class="btn btn--primary" id="submitBtn" hidden>
+                <span class="btn__label">Get prediction</span>
+                <span class="spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section class="section section--result" id="result" hidden>
+      <div class="container">
+        <div class="result-card tilt" id="resultCard">
+          <div class="ring">
+            <svg viewBox="0 0 140 140" aria-hidden="true">
+              <circle class="ring__track" cx="70" cy="70" r="60"/>
+              <circle class="ring__value" id="ringValue" cx="70" cy="70" r="60"/>
+            </svg>
+            <div class="ring__text">
+              <strong id="scoreValue">0.00</strong>
+              <span>predicted score</span>
+            </div>
+          </div>
+          <div class="result-card__body">
+            <h2>Your predicted mental health score</h2>
+            <p class="disclaimer">This result is generated by a machine learning model for informational and educational purposes only. It is not a medical diagnosis or a substitute for professional mental health advice.</p>
+            <button type="button" class="btn btn--light" id="retryBtn">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="container about">
+        <h2>About This Project</h2>
+        <p>This project explores the relationship between social media usage, academic routines and lifestyle habits through a machine learning-based prediction system.</p>
+        <p>A trained regression model receives your answers through a FastAPI service and returns a single numerical score. The interface displays that number as returned, without added interpretation.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <strong class="footer__name">Equilibria</strong>
+        <p>A machine learning project on digital habits and well-being.</p>
+      </div>
+      <p class="footer__stack">Python, FastAPI, Machine Learning, HTML, CSS, JavaScript</p>
+      <p class="footer__copy">&copy; <span id="year">2026</span> Equilibria. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
